@@ -50,6 +50,7 @@ gem "bootsnap", require: false
 
 # API gems
 gem 'faraday' 
+gem 'httparty'
 gem 'figaro' 
 
 group :development, :test do
