@@ -37,5 +37,11 @@ RSpec.describe 'library index' do
       expect(page).to have_link(Library.second.name)
       expect(page).to have_link(Library.last.name)
     end
+
+    it 'When I click on a library name link, I am taken to that libraries show page' do
+      click_link(Library.first.name)
+
+      expect(current_path).to eq(library_path(Library.first))
+    end
   end
 end
