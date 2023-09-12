@@ -1,0 +1,10 @@
+<section class="all-libraries">
+  <h2>All Libraries</h2>
+  <ul>
+    <% @libraries.each do |library| %>
+      <li><%= link_to library.name, library_path(library) %></li>
+      <li><%= library.full_address %></li>
+      <li><%= library.book_count %></li>
+    <% end %>
+  </ul>
+</section>
