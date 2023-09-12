@@ -5,4 +5,8 @@ class Library < ApplicationRecord
   def full_address
     "#{street}, #{city}, #{state} #{zip}"
   end
+
+  def book_count
+    books.count
+  end
 end
