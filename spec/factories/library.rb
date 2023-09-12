@@ -8,9 +8,17 @@ FactoryBot.define do
     lat { Faker::Address.latitude }
     lon { Faker::Address.longitude }
     
-    trait :with_5_books do
-      FactoryBot.create_list(:book, 5)
-      library_books { FactoryBot.create_list(:library_book, 5) }
+    # Define a transient attribute for the number of books
+    transient do
+      books_count { 0 }
+    end
+
+    # Create books association if books_count is greater than 0
+    after(:create) do |library, evaluator|
+      if evaluator.books_count > 0
+        create_list(:book, evaluator.books_count)
+        create_list(:library_book, evaluator.books_count, library: library)
+      end
     end
   end
 end
