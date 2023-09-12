@@ -7,6 +7,10 @@ FactoryBot.define do
     zip { Faker::Address.zip_code }
     lat { Faker::Address.latitude }
     lon { Faker::Address.longitude }
-    book_count { Faker::Number.number(digits: 2) }
+    
+    trait :with_5_books do
+      FactoryBot.create_list(:book, 5)
+      library_books { FactoryBot.create_list(:library_book, 5) }
+    end
   end
 end
