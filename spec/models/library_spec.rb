@@ -21,8 +21,8 @@ RSpec.describe Library, type: :model do
 
     describe '#book_count' do
       it 'returns the number of books at the library', :vcr do
-        library = FactoryBot.create(:library, :with_5_books)
-        
+        library = FactoryBot.create(:library, books_count: 5)
+
         expect(library.book_count).to eq(5)
       end
     end
