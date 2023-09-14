@@ -1,0 +1,8 @@
+<%= turbo_frame_tag "isbn" do %>
+  <h3>Add a book to this library</h3>
+  <%= form_with url: library_books_path(@library), local: :true do |f| %>
+    <%= f.text_field :isbn, placeholder: 'Enter ISBN' %>
+    <%= f.submit 'Add Book' %>
+  <% end %>
+  <%= button_to 'Cancel', @library, method: :get %>
+<% end %>

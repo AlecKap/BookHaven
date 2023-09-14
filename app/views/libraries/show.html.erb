@@ -1,4 +1,18 @@
 <h1><%= @library.name %></h1>
 <h2><%= @library.full_address %></h2>
 
-<%  %>
+<%= button_to 'Return to Libraries', libraries_path, method: :get %>
+<br>
+<%= turbo_frame_tag "isbn" do %>
+  <%= button_to 'Add a Book', new_library_book_path(@library), method: :get %>
+<% end %>
+
+<section class="library-books">
+  <h2>Books in this Library</h2>
+
+  <% @library.books.each do |book| %>
+    <div id="book_<%=book.id%>">
+    <%= link_to (image_tag book.book_img), library_book_path(@library, book) %>
+    </div>
+  <% end %>
+</section>
