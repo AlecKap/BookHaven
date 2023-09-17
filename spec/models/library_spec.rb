@@ -17,7 +17,14 @@ RSpec.describe Library, type: :model do
         
         expect(library.full_address).to eq('10 W Colfax Ave, Denver, CO 80202')
       end
-  
+    end
+
+    describe '#book_count' do
+      it 'returns the number of books at the library', :vcr do
+        library = FactoryBot.create(:library, books_count: 5)
+
+        expect(library.book_count).to eq(5)
+      end
     end
   end
 end

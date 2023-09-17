@@ -7,6 +7,18 @@ FactoryBot.define do
     zip { Faker::Address.zip_code }
     lat { Faker::Address.latitude }
     lon { Faker::Address.longitude }
-    book_count { Faker::Number.number(digits: 2) }
+    
+    # Define a transient attribute for the number of books
+    transient do
+      books_count { 0 }
+    end
+
+    # Create books association if books_count is greater than 0
+    after(:create) do |library, evaluator|
+      if evaluator.books_count > 0
+        create_list(:book, evaluator.books_count)
+        create_list(:library_book, evaluator.books_count, library: library)
+      end
+    end
   end
 end
