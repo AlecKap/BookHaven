@@ -49,6 +49,34 @@ RSpec.describe 'Library Show Page' do
       expect(page).to have_button("Add a Book")
     end
 
+    it 'When I fill in the ISBN field with a valid ISBN and click Add Book, 
+      I see the book I added at the top of the list, and I see a message 
+      telling me "The book has been successfully added"' do
+      book_test_data
+      visit library_path(@library1)
+      expect(@library1.books.count).to eq(1)
+    
+      click_button("Add a Book")
+      fill_in :isbn, with: "1503290566" # Alice in Wonderland
+      click_button("Add Book")
+
+      expect(current_path).to eq(library_path(@library1))
+      expect(@library1.books.count).to eq(2)
+      expect(page).to have_content("The book has been successfully added")
+      excpect(page).to have_content("Alice in Wonderland")
+    end
+
+    it 'When I fill in the ISBN field with an invalid ISBN, and click the 
+      Add Book button, I see a message that says "No books found with that ISBN. Please try another."' do
+      click_button("Add a Book")
+      
+      fill_in :isbn, with: "123456"
+      click_button("Add Book")
+
+      expect(current_path).to eq(library_path(@library))
+      expect(page).to have_content("No books found with that ISBN. Please try another")
+    end
+
     it 'I see a list of all the books images at this library and each image is a link' do
       @library.books.each do |book|
         within("#book_#{book.id}") do
