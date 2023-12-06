@@ -78,3 +78,9 @@ VCR.configure do |config|
   config.default_cassette_options = { re_record_interval: 7.days }
   config.configure_rspec_metadata!
 end
+
+def book_test_data
+  @library1 = Library.create!(name: 'Denver Public Library', street: '10 W Colfax Ave', city: 'Denver', state: 'CO', zip: 80202, lat: 39.7397, lon: -104.9873)
+  @book1 = Book.create!(isbn: "978-1-60309-057-5", title: 'book lovers', author: 'book author', description: 'book description', genre: 'book genre', book_img: 'https://static.vecteezy.com/system/resources/previews/009/384/332/original/old-vintage-book-clipart-design-illustration-free-png.png')
+  @library1.books << @book1
+end
